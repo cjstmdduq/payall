@@ -1,9 +1,10 @@
 <!-- 
 | 작성자 : 천승엽(with AI) 
 | 작성일 : 2025.02.10 최초작성 
-| 변경사항 : 
-    부트스트랩 제거 <- 이거 정밀한 점검이 필요하다. 충돌하는게 있다.
-    이미지, CSS,JS 등 상대경로로 변경
+| 변경사항 :
+    2025.02.19 : 부트스트랩 제거 <- 이거 정밀한 점검이 필요하다. 충돌하는게 있다. 이미지, CSS,JS 등 상대경로로 변경
+    2025.02.21 : 퍼블릭화를 위한 디렉토리/파일명 변경진행, 반응형 하단에 위치변경
+*/
 -->
 
 
@@ -46,8 +47,7 @@
           <ul class="nav-menu">
             <li><a href="#services">서비스</a></li>
             <li><a href="#blog-section">블로그</a></li>
-            <button class="contact-btn" onclick="location.href='#process'">
-              가맹 문의
+            <button class="contact-btn" onclick="location.href='tel:02-6402-5502';">가맹 문의</button>              
             </button>
           </ul>
         </nav>
@@ -79,8 +79,8 @@
           <span id="typing-text" style="color: #0066CC;"></span><br />PG사
           페이올입니다!
         </h1>
-        <button class="button head">가맹 문의하기</button>
-        <button class="button head1">영업 문의하기</button>
+        <button class="button head" onclick="location.href='tel:02-6402-5502'">가맹 문의하기</button>
+        <button class="button head1" onclick="location.href='tel:02-6402-5502'">영업 문의하기</button>
       </div>
     </section>
 
@@ -91,10 +91,10 @@
     <section class="partners">
       <div class="container">
         <div class="partners-count">
-          <h2>
-            지금도 <span class="count-number" data-target="30000">0</span>+
-            가맹점이 함께합니다.
-          </h2>
+          <!-- css 별도관리되는 타이틀 -->
+          <h2>오늘도 <span class="count-number" data-target="30000"></span>개 
+          <br>가맹점이 함께합니다.</h2>
+          <div class="now time">
         </div>
         <div class="logo-row">
           <a href="#" class="logo-item">
@@ -184,7 +184,7 @@
     <!-- 소개영상섹션 -->
     <section class="youtube-section">
       <div class="container">
-        <h2 class="section-title">페이올 소개 영상</h2>
+        <div class="section-title">페이올 소개 영상</div>       
         <div class="youtube-container">
           <iframe
             src="https://www.youtube.com/embed/MGx2PqRcTQ4"
@@ -278,8 +278,6 @@
           </div>
         </div>
       </div>
-    </section>
-
       <!-- 좌우이동 네비게이션 버튼 -->
       <button class="prev">‹</button>
       <button class="next">›</button>
@@ -305,10 +303,10 @@
               수기결제
             </div>
             <div class="service-box" data-service="businessTerminal">
-              사업자 단말기
+              사업자단말기
             </div>
             <div class="service-box" data-service="nonBusinessManual">
-              비사업자 수기결제
+              비사업자수기결제
             </div>
             <div class="service-box" data-service="internationalcard">
               해외카드
@@ -512,11 +510,11 @@
             <div class="info-grid">
               <div class="info-item">
                 <span class="label">상호</span>
-                <span class="value">준앤컴퍼니</span>
+                <span class="value">페이올(준앤컴퍼니)</span>
               </div>
               <div class="info-item">
                 <span class="label">사업자등록번호</span>
-                <span class="value">000-00-000000</span>
+                <span class="value">798-20-00478</span>
               </div>
               <div class="info-item address">
                 <span class="label">주소</span>
@@ -537,7 +535,7 @@
           </div>
         </div>
         <div class="copyright">
-          <p>Copyright © PayAll. All rights reserved.</p>
+          <p>Copyright © 준앤컴퍼니 PAYAll. All rights reserved.</p>
         </div>
       </div>
     </footer>
