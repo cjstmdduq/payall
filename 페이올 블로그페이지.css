@@ -1,0 +1,691 @@
+  :root {
+      --primary-blue: #0066cc;
+      --white: #ffffff;
+      --light-blue: #e6f0ff;
+      --dark-gray: #333;
+      --light-gray: #696969;
+      --black: #191919;
+      --background-light: #f8f9fa;
+      --navy-dark: #001f3f;
+      --navy-light: #003366;
+      --gold: #ffd700;
+      --primary-gradient: linear-gradient(135deg, #4299e1, #2b6cb0);
+      --shadow-color: rgba(43, 108, 176, 0.1);
+      --primary-color: #4a90e2;
+      --text-dark: #1a202c;
+      --shadow-color-2: rgba(74, 144, 226, 0.2);
+      --primary-gradient-2: linear-gradient(135deg, #4a90e2 0%, #357abd 100%);
+    }
+    * {
+      margin: 0; 
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: "Pretendard", sans-serif;
+      color: var(--dark-gray);
+      line-height: 1.6;
+    }
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+    
+    /* ============================ */
+    /* 헤더, 프로모션 배너, 푸터 등 */
+    /* (위에서 사용하신 스타일 그대로 가져올 수 있음) */
+    /* ============================ */
+    
+    .promo-banner {
+      background: linear-gradient(-45deg, var(--navy-dark), var(--primary-blue));
+      background-size: 400% 400%;
+      position: fixed;
+      width: 100%;
+      top: 0;
+      left: 0;
+      color: white;
+      padding: 8px 0;
+      text-align: center;
+      font-size: 0.9rem;
+      z-index: 1001;
+      animation: gradientBG 5s ease infinite;
+    }
+    @keyframes gradientBG {
+      0% {
+        background-position: 0% 50%;
+      }
+      50% {
+        background-position: 100% 50%;
+      }
+      100% {
+        background-position: 0% 50%;
+      }
+    }
+    .promo-banner strong {
+      font-weight: 600;
+      margin-right: 5px;
+      color: var(--gold);
+      animation: sparkle 2s infinite;
+    }
+    @keyframes sparkle {
+      0% {
+        opacity: 1;
+        text-shadow: 0 0 10px var(--gold);
+      }
+      50% {
+        opacity: 0.8;
+        text-shadow: 0 0 20px var(--gold);
+      }
+      100% {
+        opacity: 1;
+        text-shadow: 0 0 10px var(--gold);
+      }
+    }
+    .promo-link {
+      color: white;
+      text-decoration: none;
+      display: inline-block;
+      transition: opacity 0.3s ease;
+    }
+    .promo-link:hover {
+      opacity: 0.9;
+    }
+    .promo-link::after {
+      content: "›";
+      margin-left: 5px;
+      font-size: 1.2em;
+      vertical-align: middle;
+    }
+
+    /* 헤더 */
+    .header {
+      background-color: rgba(255, 255, 255, 0.95);
+      position: fixed;
+      width: 100%;
+      top: 36px;
+      left: 0;
+      padding: 20px 0;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      z-index: 1000;
+    }
+    .header .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 15px;
+    }
+    .logo {
+      font-size: 24px;
+      font-weight: bold;
+      color: var(--primary-blue);
+    }
+    .nav-menu {
+      display: flex;
+      align-items: center;
+      gap: 30px;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    .nav-menu li a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      color: var(--dark-gray);
+      font-weight: 500;
+      transition: color 0.3s ease;
+      padding: 8px 12px;
+      line-height: 1.2;
+    }
+    .nav-menu li a:hover {
+      color: var(--primary-blue);
+    }
+    .contact-btn {
+      background-color: var(--primary-blue);
+      color: #fff !important;
+      border: none;
+      outline: none;
+      border-radius: 6px;
+      font-weight: bold;
+      transition: background-color 0.3s ease;
+      padding: 8px 12px;
+      cursor: pointer;
+    }
+    .contact-btn:hover {
+      background-color: darkblue;
+    }
+
+    /* 푸터 영역 */
+    footer {
+      background: var(--white);  /* 어두운 배경을 밝은 색으로 변경 */
+      color: var(--dark-gray);   /* 밝은 텍스트를 어두운 색으로 변경 */
+      padding: 60px 0 40px;
+    }
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    .company-name {
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin-bottom: 30px;
+      color: var(--dark-gray);  /* 밝은 색을 어두운 색으로 변경 */
+    }
+    .info-grid {
+      display: grid;
+      gap: 12px;
+      margin-bottom: 40px;
+    }
+    .info-item {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+    .info-item .label {
+      color: #666;  /* 밝은 회색을 어두운 회색으로 변경 */
+      min-width: 70px;
+    }
+    .info-item .value {
+      color: var(--dark-gray);  /* 밝은 색을 어두운 색으로 변경 */
+    }
+    .copyright {
+      padding-top: 10px;
+      text-align: center;
+      color: #666;  /* 밝은 회색을 어두운 회색으로 변경 */
+      font-size: 0.9rem;
+      border-top: 1px solid rgba(0,0,0,0.1);  /* 밝은 테두리를 어두운 색으로 변경 */
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /* ============================ */
+    /* 핵심 - 블로그식 + Docs 레이아웃 */
+    /* ============================ */
+
+    /* 메인 전체 래퍼 */
+    .main-wrapper {
+      display: flex;
+      max-width: 100vw;
+      margin: 0 auto;
+      padding-top: clamp(60px, 10vh, 100px); /*반응형*/
+    }
+
+    /* 사이드바 (목차, 카테고리, 링크 등) */
+    .sidebar {
+      flex: 0 0 280px;
+      padding: 30px 20px;
+      min-height: calc(100vh - 160px); /* 예시 */
+      position: sticky;
+      top: 160px; /* 헤더/배너 높이만큼 고정 */
+    }
+    .sidebar h2 {
+      font-size: 1.2rem;
+      margin-bottom: 20px;
+      color: var(--dark-gray);
+      font-weight: bold;
+    }
+    .sidebar ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    .sidebar ul li {
+      margin-bottom: 8px;
+    }
+    .sidebar ul li a {
+      color: var(--dark-gray);
+      padding: 6px 8px;
+      display: block;
+      transition: background 0.2s ease;
+    }
+    .sidebar ul li a:hover {
+      background: var(--light-blue);
+      color: var(--primary-blue);
+    }
+
+
+
+
+
+
+
+
+    /* ================================================== */
+    /* ================================================== */
+    /* ================================================== */
+    /* (보류 예정) 메인 콘텐츠 영역 - 사용자의 움직임에 따라 전환되늰 페이지의 css*/
+    
+    /* 블로그 콘텐츠 전역영역 */
+    .content-area {
+      flex: 1;
+      /* background: var(--background-light); */
+      padding: 40px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    /* iframe 스타일 추가 */
+    .content-area iframe {
+      width: 100%;
+      min-height: 100vh;
+      border: none;
+    }
+
+    /* 전역 글 스타일 (본문, 제목, 코드블록 등) */
+    .content-area h1 {
+      font-size: 2rem;
+      margin-bottom: 20px;
+      color: var(--dark-gray);
+    }
+    .content-area h2 {
+      font-size: 1.75rem;
+      margin: 40px 0 16px;
+      color: var(--dark-gray);
+    }
+    .content-area h3 {
+      font-size: 1.4rem;
+      margin: 30px 0 12px;
+      color: var(--dark-gray);
+    }
+    .content-area p {
+      margin-bottom: 16px;
+      line-height: 1.7;
+      color: var(--text-dark);
+      font-weight: 400;
+    }
+    .content-area strong {
+      font-weight: 600; /* 굵기 강조 */
+    }
+    .content-area em {
+      font-style: italic; /* 기울임 */
+    }
+
+    /* 코드블록 스타일 */
+    .content-area pre,
+    .content-area code {
+      background: #2e2e2e;
+      color: #fff;
+      padding: 12px;
+      border-radius: 6px;
+      font-family: "Consolas", monospace;
+      overflow-x: auto;
+      line-height: 1.5;
+    }
+    .content-area pre {
+      margin-bottom: 20px;
+    }
+    .content-area code {
+      /* inline code와 구분하여 스타일 차이를 두고 싶다면 */
+      font-size: 0.95rem;
+    }
+
+    /* ================================================================== */
+    /* 1) 베이직 “블로그 피드” 레이아웃: 제목 + 메타정보 + 썸네일 + 본문요약 */
+    /* ================================================================== */
+    .blog-feed {
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+      margin-top: 40px;
+    }
+    .blog-post {
+      background: #fff;
+      border-radius: 8px;
+      padding: 24px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .blog-post:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 4px 14px rgba(0,0,0,0.1);
+    }
+    /* 포스트 내 요소 */
+    .blog-post .post-title {
+      font-size: 1.4rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+      color: var(--dark-gray);
+      line-height: 1.3;
+    }
+    .blog-post .post-meta {
+      font-size: 0.9rem;
+      color: #999;
+      margin-bottom: 16px;
+      /* 메타 정보: 날짜, 작성자, 카테고리 등 */
+    }
+    .blog-post .post-thumbnail {
+      width: 100%;
+      height: auto;
+      max-height: 350px; /* 썸네일 높이 제한 */
+      object-fit: cover; /* 이미지를 잘라서 커버링 */
+      border-radius: 6px;
+      margin-bottom: 16px;
+    }
+    .blog-post .post-excerpt {
+      font-size: 1rem;
+      color: #555;
+      line-height: 1.6;
+    }
+    /* 태그, 카테고리등 모아둔 경우 */
+    .blog-post .post-tags {
+      margin-top: 16px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .blog-post .post-tag {
+      background: var(--light-blue);
+      color: var(--primary-blue);
+      font-size: 0.8rem;
+      padding: 4px 8px;
+      border-radius: 20px;
+      transition: background 0.2s ease;
+    }
+    .blog-post .post-tag:hover {
+      background: var(--primary-blue);
+      color: var(--white);
+    }
+
+    /* ================================================================== */
+    /* 2) “카드형 그리드” 블로그 레이아웃 (IT기업 공식 블로그나 기술문서 등에서 많이 사용) */
+    /* ================================================================== */
+    .blog-card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 20px;
+      margin-top: 40px;
+    }
+    .blog-card {
+      background: #fff;
+      border-radius: 8px;
+      overflow: hidden;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      box-shadow: 0 1px 6px rgba(0,0,0,0.05);
+    }
+    .blog-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 4px 14px rgba(0,0,0,0.1);
+    }
+    /* 카드 내부 */
+    .blog-card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      display: block;
+    }
+    .blog-card-content {
+      padding: 20px;
+    }
+    .blog-card-title {
+      font-size: 1.2rem;
+      margin-bottom: 8px;
+      font-weight: bold;
+      color: var(--dark-gray);
+    }
+    .blog-card-meta {
+      font-size: 0.85rem;
+      color: #aaa;
+      margin-bottom: 12px;
+    }
+    .blog-card-desc {
+      font-size: 0.95rem;
+      color: #555;
+      line-height: 1.6;
+      margin-bottom: 10px;
+    }
+    .blog-card-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .blog-card-tag {
+      background: var(--light-blue);
+      color: var(--primary-blue);
+      font-size: 0.8rem;
+      padding: 4px 8px;
+      border-radius: 20px;
+      transition: background 0.2s ease;
+    }
+    .blog-card-tag:hover {
+      background: var(--primary-blue);
+      color: var(--white);
+    }
+
+    /* ================================================================== */
+    /* 3) “타임라인 스타일” (버티컬 라인 따라 게시물을 표시) */
+    /* ================================================================== */
+    .timeline-feed {
+      position: relative;
+      margin-top: 40px;
+      padding-left: 40px; /* 라인 + 아이콘 공간 확보 */
+    }
+    .timeline-feed::before {
+      content: "";
+      position: absolute;
+      left: 16px;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background-color: var(--primary-blue);
+      opacity: 0.2;
+    }
+    .timeline-item {
+      margin-bottom: 40px;
+      position: relative;
+    }
+    .timeline-item::before {
+      content: "";
+      position: absolute;
+      left: 8px;
+      top: 0;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--primary-blue);
+    }
+    .timeline-item .timeline-date {
+      font-size: 0.9rem;
+      color: #999;
+      margin-bottom: 4px;
+    }
+    .timeline-item .timeline-title {
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+      color: var(--dark-gray);
+    }
+    .timeline-item .timeline-content {
+      background: #fff;
+      border-radius: 6px;
+      padding: 16px;
+      box-shadow: 0 1px 6px rgba(0,0,0,0.05);
+      margin-left: 20px; /* 라인과 간격 */
+      transition: transform 0.3s ease;
+    }
+    .timeline-item:hover .timeline-content {
+      transform: translateY(-2px);
+    }
+
+    /* ================================================================== */
+    /* 4) 트렌디한 “매거진 스타일” (Large Hero Image, 큰 글자 등) */
+    /* ================================================================== */
+    /* 대형 썸네일, 두 줄제목 배치 등으로 강조하는 스타일 */
+    .magazine-feed {
+      display: flex;
+      flex-direction: column;
+      gap: 60px;
+      margin-top: 40px;
+    }
+    .magazine-post {
+      position: relative;
+      color: #fff; /* 어두운 배경 이미지 위에 글씨를 올릴 때 */
+      border-radius: 8px;
+      overflow: hidden;
+      min-height: 300px; /* 이미지가 충분히 커야함 */
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    }
+    .magazine-post img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      filter: brightness(60%);
+      transition: filter 0.3s ease;
+    }
+    .magazine-post .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      padding: 40px 30px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+    }
+    .magazine-post h2 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+    .magazine-post .meta {
+      font-size: 0.85rem;
+      margin-bottom: 16px;
+      opacity: 0.9;
+    }
+    .magazine-post:hover img {
+      filter: brightness(70%); /* Hover 시 조금 더 밝게 or 어둡게 변화 */
+    }
+
+    /* 반응형 대응 */
+    @media (max-width: 992px) {
+      .content-area {
+        padding: 20px;
+        max-width: 100%;
+      }
+      .blog-card-grid {
+        grid-template-columns: 1fr;
+      }
+      .timeline-feed {
+        padding-left: 20px;
+      }
+      .timeline-item .timeline-content {
+        margin-left: 30px; 
+      }
+      .magazine-post {
+        min-height: 200px;
+      }
+      .magazine-post .overlay {
+        padding: 20px;
+      }
+      .magazine-post h2 {
+        font-size: 1.5rem;
+      }
+    }
+
+
+
+
+
+
+    /* 블로그 포스트 리스트 영역 (예시) */
+    .blog-section {
+      margin-top: 80px;
+    }
+    .blog-section h2 {
+      font-size: 1.5rem;
+      margin-bottom: 30px;
+      font-weight: bold;
+      color: var(--dark-gray);
+    }
+    .blog-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 20px;
+    }
+    .blog-card {
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+      overflow: hidden;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .blog-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+    }
+    .blog-card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+    }
+    .blog-card-content {
+      padding: 20px;
+    }
+    .blog-card-title {
+      font-size: 1.2rem;
+      margin-bottom: 10px;
+      color: var(--dark-gray);
+      font-weight: bold;
+    }
+    .blog-card-desc {
+      font-size: 0.95rem;
+      color: #555;
+      line-height: 1.5;
+      margin-bottom: 10px;
+    }
+    .blog-card-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .blog-card-tag {
+      background: var(--light-blue);
+      color: var(--primary-blue);
+      font-size: 0.8rem;
+      padding: 4px 8px;
+      border-radius: 20px;
+    }
+
+    /* 반응형 */
+    @media (max-width: 992px) {
+      .sidebar {
+        position: static;
+        width: 100%;
+        border-right: none;
+        border-bottom: 1px solid #ddd;
+        min-height: auto;
+        margin-bottom: 30px;
+      }      
+
+      @media screen and (max-width: 992px) {
+        .sidebar {
+          display: none;
+        }
+      }
+      .content-area {
+        padding: 0px;
+      }
+    }
