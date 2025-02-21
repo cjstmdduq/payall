@@ -312,6 +312,11 @@ button.head1:hover {
   font-weight: bold;
 }
 
+.now.time {
+  color: #b0b0b0;       /* 흰색 글자 */
+  font-size: 1.0em; /* 작은 글씨 (원하는 크기로 조절 가능) */
+}
+
 .partners-logos {
   position: relative;
   width: 100%;
@@ -739,7 +744,7 @@ button.head1:hover {
 }
 
 .modal-description {
-  color: #4a5568;
+  color: #684a4a;
   font-size: 1.1rem;
   line-height: 1.6;
   margin-bottom: 25px;
