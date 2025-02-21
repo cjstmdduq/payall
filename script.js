@@ -1,6 +1,8 @@
 // | 작성자 : 천승엽(with AI)
 // | 작성일 : 2025.02.10 최초작성
 // | selfpeedback : JS는 하나도 이해못했다. 공부할 것 (2025.02.18)
+// | 변경사항
+// 2025.02.21 파트너사 - 숫자카운트 - 오늘날짜기능 추가
 
 //====================================================//
 //====================================================//
@@ -97,7 +99,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const countElement = document.querySelector(".count-number");
   if (countElement) {
     const target = parseInt(countElement.dataset.target);
-    const duration = 3000;
+    const duration = 500;
     const step = target / (duration / 16);
     let current = 0;
     let rafId;
@@ -130,6 +132,17 @@ document.addEventListener("DOMContentLoaded", function () {
     observer.observe(countElement);
   }
 
+  // 현재 날짜 객체 생성 - 지금 타이머 띄우는 기능
+  const now = new Date();
+  // 연도, 월, 일 추출
+  const year = now.getFullYear();
+  const month = now.getMonth() + 1; // 월은 0부터 시작하므로 1을 더해줍니다.
+  const day = now.getDate();
+  // 원하는 형식으로 날짜를 표시 (예: "2025년 2월 21일 기준 집계")
+  document.querySelector(
+    ".now.time"
+  ).innerText = `${year}년 ${month}월 ${day}일 기준 집계`;
+
   // 2. 로고 무한 슬라이드 애니메이션 (3줄 교차 슬라이드)
   const logoRows = document.querySelectorAll(".logo-row");
   if (logoRows.length) {
@@ -154,7 +167,6 @@ document.addEventListener("DOMContentLoaded", function () {
 //====================================================//
 //====================================================//
 //====================================================//
-//서비스 슬라이드섹션 - 야 이거 왜 끊어짐..ㅠㅠㅠㅠ
 
 document.addEventListener("DOMContentLoaded", function () {
   // 표시할 슬라이드 개수 (항상 5개가 보인다고 가정)
@@ -290,10 +302,11 @@ document.addEventListener("DOMContentLoaded", function () {
 const serviceInfo = {
   nonBusinessTerminal: {
     title: "비사업자 단말기",
-    description: "사업자 없이도 카드결제를 받을 수 있는 비사업자전용 단말기입니다. 최신 결제 단말기로 안전하고 빠른 결제를 지원합니다.",
+    description:
+      "사업자 없이도 카드결제를 받을 수 있는 비사업자전용 단말기입니다. 최신 결제 단말기로 안전하고 빠른 결제를 지원합니다.",
     features: [
-      "삼성페이,앱카드 지원",      
-      "영수증용지 무상지원",      
+      "삼성페이,앱카드 지원",
+      "영수증용지 무상지원",
       "당일 개통 서비스",
       "서비스케어 담당자 배정",
       "D+1 정산(영업일기준)",
@@ -304,7 +317,7 @@ const serviceInfo = {
     description: "고객의 카드번호만으로도 비대면으로 결제할 수 있습니다.",
     features: [
       "결제URL 생성기능 제공",
-      "간소화 된 심의절차",      
+      "간소화 된 심의절차",
       "서비스케어 담당자 배정",
       "D+1 정산(영업일기준)",
       "보증보험미가입(월 1,000만원)",
@@ -323,10 +336,11 @@ const serviceInfo = {
   },
   nonBusinessManual: {
     title: "비사업자 수기결제 서비스",
-    description: "사업자등록 없이도, 고객의 카드번호만으로도 결제하는 수기결제서비스를 도입 할 수 있습니다.",
+    description:
+      "사업자등록 없이도, 고객의 카드번호만으로도 결제하는 수기결제서비스를 도입 할 수 있습니다.",
     features: [
       "결제URL 생성기능 제공",
-      "간소화 된 심의절차",      
+      "간소화 된 심의절차",
       "서비스케어 담당자 배정",
       "D+1 정산(영업일기준)",
       "보증보험미가입(월 1,000만원)",
@@ -335,17 +349,15 @@ const serviceInfo = {
   internationalcard: {
     title: "해외카드 서비스",
     description: "해외카드결제가 가능한 단말기 서비스입니다.",
-    features: [
-      '사업자전용','별도등록필요',  
-    ],
+    features: ["사업자전용", "별도등록필요"],
   },
   kiosk: {
     title: "키오스크 서비스",
     description: "프랜차이즈 매장에 최적화된 키오스크 결제 솔루션입니다.",
-    features: [      
+    features: [
       "직관적인 인터페이스",
       "맞춤형 UI/UX 제공",
-      "본사&가맹점 통합관리",          
+      "본사&가맹점 통합관리",
       "24시간 기술지원",
       "POS/테이블오더 연동",
     ],
@@ -356,8 +368,8 @@ const serviceInfo = {
     features: [
       "직관적인 인터페이스",
       "맞춤형 UI/UX 제공",
-      "본사&가맹점 통합관리",          
-      "24시간 기술지원", 
+      "본사&가맹점 통합관리",
+      "24시간 기술지원",
       "키오스크/테이블오더 연동",
     ],
   },
@@ -366,8 +378,8 @@ const serviceInfo = {
     description: "식당에서 테이블 주문 및 결제를 간편하게 진행할 수 있습니다.",
     features: [
       "QR코드 기반 주문시스템",
-      "터치패드 기반 주문시스템",      
-      "기타결제 시스템 연동", 
+      "터치패드 기반 주문시스템",
+      "기타결제 시스템 연동",
       "맞춤형 UI/UX 제공",
       "키오스크/POS 연동",
     ],
@@ -375,7 +387,7 @@ const serviceInfo = {
   delivery: {
     title: "배달대행 결제 서비스",
     description: "배달 대행 결제 솔루션으로 편리한 주문 및 결제를 지원합니다.",
-    features: [      
+    features: [
       "배달앱 연동 시스템",
       "자동 영수증 발행",
       "배달대행 정산관리",
@@ -386,44 +398,30 @@ const serviceInfo = {
   paymentModule: {
     title: "결제 모듈 연동 서비스",
     description: "온라인 가맹점에 맞춤형 결제 모듈을 제공합니다.",
-    features: [
-      "간편한 API 연동",
-      "테스트 계정 지원",
-      "기술지원 서비스",
-    ],
+    features: ["간편한 API 연동", "테스트 계정 지원", "기술지원 서비스"],
   },
   internationalpay: {
     title: "해외 결제 서비스",
-    description: "온라인 글로벌 비즈니스를 위한 해외결제모듈솔루션을 제공합니다.",
-    features: [
-      "글로벌 PG사 연동",
-      "해외카드 결제모듈 제공",
-    ],
+    description:
+      "온라인 글로벌 비즈니스를 위한 해외결제모듈솔루션을 제공합니다.",
+    features: ["글로벌 PG사 연동", "해외카드 결제모듈 제공"],
   },
   recurring: {
     title: "정기 결제 서비스",
     description: "정기 결제 관리 및 자동 결제 시스템을 지원합니다.",
-    features: [
-      "자동 결제일 설정",
-      "카드 유효성 자동체크",     
-      "결제내역 리포트",     
-    ],
+    features: ["자동 결제일 설정", "카드 유효성 자동체크", "결제내역 리포트"],
   },
   subscription: {
     title: "구독 결제 서비스",
     description: "구독형 서비스에 최적화된 결제 솔루션입니다.",
-    features: [
-      "자동 결제일 설정",
-      "카드 유효성 자동체크",     
-      "결제내역 리포트",     
-    ],
+    features: ["자동 결제일 설정", "카드 유효성 자동체크", "결제내역 리포트"],
   },
-
 
   hospitalPharmacy: {
     title: "병원 및 약국 서비스",
-    description: "의료 기관에 최적화된 결제 솔루션으로 효율적인 운영을 도와드립니다.",
-    features: [     
+    description:
+      "의료 기관에 최적화된 결제 솔루션으로 효율적인 운영을 도와드립니다.",
+    features: [
       "비급여 전용 결제단말기 지원",
       "병원 전용 키오스크&포스 시스템",
       "약국 전용 단말기 제공",
@@ -488,15 +486,13 @@ const serviceInfo = {
     features: [
       "긴급 급여지급 결제지원",
       "정기급여 자동지급",
-      "급여명세서 발행",             
+      "급여명세서 발행",
     ],
   },
   deposit: {
     title: "보증금 카드 결제 서비스",
     description: "보증금 결제를 위한 간편하고 안전한 솔루션입니다.",
-    features: [
-      "PG에스크로 서비스",
-    ],
+    features: ["PG에스크로 서비스"],
   },
 };
 
