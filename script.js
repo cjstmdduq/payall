@@ -2,11 +2,39 @@
 // | 작성일 : 2025.02.10 최초작성
 // | selfpeedback : JS는 하나도 이해못했다. 공부할 것 (2025.02.18)
 // | 변경사항
-// 2025.02.21 파트너사 - 숫자카운트 - 오늘날짜기능 추가
+    // 2025.02.21 : 파트너사 - 숫자카운트 - 오늘날짜기능 추가
+    // 2025.02.22 : 대규모 수정작업 진행
 
 //====================================================//
 //====================================================//
 //====================================================//
+
+
+// 프로모션 배너 반짝임효과
+function randomSparkle() {
+  const strong = document.querySelector(".promo-banner strong");
+  const intensity = Math.random() * 30 + 10; // 10-40px 범위의 랜덤 값
+  strong.style.textShadow = `0 0 ${intensity}px var(--gold)`;
+
+  // 다음 반짝임까지의 랜덤 시간 설정 (0.5-2초)
+  setTimeout(randomSparkle, Math.random() * 1500 + 500);
+}
+
+
+// 프로모션 배너 스크롤 시 하이드
+window.addEventListener('scroll', function () {
+  const banner = document.querySelector('.promo-banner');
+  if (window.scrollY > 100) { // 100px 이상 스크롤되면
+    banner.classList.add('hide-banner');
+  } else {
+    banner.classList.remove('hide-banner');
+  }
+});
+
+// 초기 실행
+randomSparkle();
+
+
 // 네비게이션바 섹션
 // 네비게이션 스크롤 애니메이션
 document.querySelectorAll(".nav-menu a").forEach((anchor) => {
@@ -27,18 +55,60 @@ document.querySelectorAll(".nav-menu a").forEach((anchor) => {
   });
 });
 
-// 프로모션 배너 반짝임효과
-function randomSparkle() {
-  const strong = document.querySelector(".promo-banner strong");
-  const intensity = Math.random() * 30 + 10; // 10-40px 범위의 랜덤 값
-  strong.style.textShadow = `0 0 ${intensity}px var(--gold)`;
+// 스크롤 시 위치 이벤트 처리
+window.addEventListener('scroll', function () {
+  const banner = document.querySelector('.promo-banner');
+  const header = document.querySelector('.header');
 
-  // 다음 반짝임까지의 랜덤 시간 설정 (0.5-2초)
-  setTimeout(randomSparkle, Math.random() * 1500 + 500);
+  if (window.scrollY > 100) { // 100px 이상 스크롤되면
+    banner.classList.add('hide-banner');
+    header.style.top = '0'; // 헤더를 최상단으로 이동
+  } else {
+    banner.classList.remove('hide-banner');
+    header.style.top = '36px'; // 프로모션 배너 높이만큼 아래로
+  }
+});
+
+
+// 모바일 화면에서 햄버거메뉴 토글 js
+document.getElementById("menuToggle").addEventListener("click", function () {
+  document.getElementById("mobileNav").classList.toggle("show");
+});
+
+
+
+
+//====================================================//
+//====================================================//
+//====================================================//
+// 모바일전용 상담문의 버튼 (50번 스크롤하면 등장함)
+
+let scrollCount = 0;
+const callButton = document.getElementById("callButton");
+const tooltip = document.getElementById("tooltip");
+
+window.addEventListener("scroll", () => {
+  scrollCount++;
+
+  if (scrollCount >= 50) {
+    callButton.classList.add("show");
+    tooltip.classList.add("show");
+
+    // 2.0초 후 툴팁 자동 숨김 (더 자연스럽게)
+    setTimeout(() => {
+      tooltip.classList.remove("show");
+    }, 2000);
+  }
+});
+
+function makeCall() {
+  window.location.href = "tel:0264025502";
 }
 
-// 초기 실행
-randomSparkle();
+
+
+
+
 
 //====================================================//
 //====================================================//
@@ -97,8 +167,30 @@ document.addEventListener("DOMContentLoaded", function () {
 // 1. 텍스트 카운트 애니메이션 (상단 숫자 카운팅) 공부용 메모주석!
 document.addEventListener("DOMContentLoaded", function () {
   const countElement = document.querySelector(".count-number");
-  if (countElement) {
-    const target = parseInt(countElement.dataset.target);
+  const timeElement = document.querySelector(".now.time");
+
+  // 기준 가맹점 수 범위 설정
+  const minPartners = 31300;
+  const maxPartners = 31305;
+
+  // 날짜 형식 포맷팅 함수
+  function formatDate(date) {
+    const year = date.getFullYear();
+    const month = date.getMonth() + 1;
+    const day = date.getDate();
+    const hours = String(date.getHours()).padStart(2, '0');
+    const minutes = String(date.getMinutes()).padStart(2, '0');
+    const time = `${hours}:${minutes}`;
+    return `${year}.${month}.${day}. ${time} 전산자동집계 기준`;
+  }
+
+  // 랜덤 가맹점 수 생성 함수
+  function generateRandomPartners() {
+    return Math.floor(Math.random() * (maxPartners - minPartners + 1)) + minPartners;
+  }
+
+  // 카운트 애니메이션 함수
+  function animateCount(target) {
     const duration = 500;
     const step = target / (duration / 16);
     let current = 0;
@@ -114,55 +206,95 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     }
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            requestAnimationFrame(updateCount);
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      {
-        threshold: [0.2, 0.5],
-        rootMargin: "50px",
-      }
-    );
-
-    observer.observe(countElement);
+    requestAnimationFrame(updateCount);
   }
 
-  // 현재 날짜 객체 생성 - 지금 타이머 띄우는 기능
-  const now = new Date();
-  // 연도, 월, 일 추출
-  const year = now.getFullYear();
-  const month = now.getMonth() + 1; // 월은 0부터 시작하므로 1을 더해줍니다.
-  const day = now.getDate();
-  // 원하는 형식으로 날짜를 표시 (예: "2025년 2월 21일 기준 집계")
-  document.querySelector(
-    ".now.time"
-  ).innerText = `${year}년 ${month}월 ${day}일 기준 집계`;
+  // 가맹점 수와 날짜 업데이트 함수
+  function updatePartnersAndDate() {
+    const newTarget = generateRandomPartners();
+    countElement.dataset.target = newTarget;
+    animateCount(newTarget);
+    timeElement.textContent = formatDate(new Date());
+  }
 
-  // 2. 로고 무한 슬라이드 애니메이션 (3줄 교차 슬라이드)
-  const logoRows = document.querySelectorAll(".logo-row");
-  if (logoRows.length) {
-    logoRows.forEach((row) => {
-      const fragment = document.createDocumentFragment();
-      const originalLogos = Array.from(row.children).slice(0, 8);
+  // 다음 오전 9시까지 남은 시간 계산 함수
+  function getTimeUntilNextUpdate() {
+    const now = new Date();
+    const next = new Date(now);
+    next.setHours(9, 0, 0, 0);
 
-      originalLogos.forEach((logo) => {
-        const clone = logo.cloneNode(true);
-        const img = clone.querySelector("img");
-        if (img) {
-          img.loading = "lazy";
+    if (now.getHours() >= 9) {
+      next.setDate(next.getDate() + 1);
+    }
+
+    return next.getTime() - now.getTime();
+  }
+
+  // 초기 설정 및 정기 업데이트 설정
+  function initializeUpdates() {
+    updatePartnersAndDate();
+
+    // 매일 오전 9시에 업데이트
+    setTimeout(() => {
+      updatePartnersAndDate();
+      setInterval(updatePartnersAndDate, 24 * 60 * 60 * 1000); // 24시간마다
+    }, getTimeUntilNextUpdate());
+
+    // 테스트용: 30초마다 업데이트 (실제 배포 시 주석 처리)
+    // setInterval(updatePartnersAndDate, 10000);
+  }
+
+  // IntersectionObserver 설정
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          initializeUpdates();
+          observer.unobserve(entry.target);
         }
-        fragment.appendChild(clone);
       });
+    },
+    {
+      threshold: [0.2, 0.5],
+      rootMargin: "50px",
+    }
+  );
 
-      row.appendChild(fragment);
-    });
-  }
+  observer.observe(countElement);
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+// 2. 로고 무한 슬라이드 애니메이션 (3줄 교차 슬라이드)
+const logoRows = document.querySelectorAll(".logo-row");
+if (logoRows.length) {
+  logoRows.forEach((row) => {
+    const fragment = document.createDocumentFragment();
+    const originalLogos = Array.from(row.children).slice(0, 8);
+
+    originalLogos.forEach((logo) => {
+      const clone = logo.cloneNode(true);
+      const img = clone.querySelector("img");
+      if (img) {
+        img.loading = "lazy";
+      }
+      fragment.appendChild(clone);
+    });
+
+    row.appendChild(fragment);
+  });
+}
+
 
 //====================================================//
 //====================================================//
@@ -618,13 +750,3 @@ window.addEventListener("hashchange", modalState.handleHashChange);
 const serviceModal = new ServiceModal();
 document.addEventListener("DOMContentLoaded", modalState.handleHashChange);
 
-//====================================================//
-//====================================================//
-//====================================================//
-
-// 문의상담 영역 <- 폐기
-// document.querySelector('.contact-form').addEventListener('submit', function(e) {
-//     e.preventDefault();
-//     // 입력 시 얼럿 반환
-//     alert('문의가 접수되었습니다. 빠른 시일 내에 연락드리겠습니다.');
-// });
