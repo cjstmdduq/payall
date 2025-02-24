@@ -409,8 +409,12 @@ body {
   color: #191919;
 }
 
+.searchKeyword {
+  font-weight: bold;
+  color: #0066CC;
+}
 
-/* 나중에 실력 더 늘면 버튼 전역으로 통제해 */
+
 button.head {
   font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
   background: var(--primary-blue);
