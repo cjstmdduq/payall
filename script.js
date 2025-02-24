@@ -2,8 +2,9 @@
 // | 작성일 : 2025.02.10 최초작성
 // | selfpeedback : JS는 하나도 이해못했다. 공부할 것 (2025.02.18)
 // | 변경사항
-    // 2025.02.21 : 파트너사 - 숫자카운트 - 오늘날짜기능 추가
-    // 2025.02.22 : 대규모 수정작업 진행
+// 2025.02.21 : 파트너사 - 숫자카운트 - 오늘날짜기능 추가
+// 2025.02.22 : 대규모 수정작업 진행
+// 2025.02.04 : 히어로섹션 - 유입키워드 반환 기능 추가
 
 //====================================================//
 //====================================================//
@@ -110,9 +111,70 @@ function makeCall() {
 
 
 
+
+
 //====================================================//
 //====================================================//
 //====================================================//
+
+
+// URL에서 특정 파라미터 값 가져오기
+function getQueryParam(param) {
+  const urlParams = new URLSearchParams(window.location.search);
+  return urlParams.get(param);
+}
+
+// Referrer(이전 페이지)에서 검색어 추출
+function getSearchKeywordFromReferrer() {
+  const referrer = document.referrer; // 사용자가 어디서 왔는지 확인
+  let keyword = "";
+
+  if (referrer.includes("search.naver.com")) { // 네이버 검색어 추출
+    const refUrl = new URL(referrer);
+    keyword = refUrl.searchParams.get("query"); // 네이버 검색어 파라미터
+  } else if (referrer.includes("google.com")) { // 구글 검색어 추출
+    const refUrl = new URL(referrer);
+    keyword = refUrl.searchParams.get("q"); // 구글 검색어 파라미터
+  }
+
+  return keyword;
+}
+
+// 검색어 표시 로직
+function showSearchMessage() {
+  let searchKeyword = getQueryParam("query") || getSearchKeywordFromReferrer();
+  const searchElement = document.getElementById("searchKeyword");
+
+  if (searchKeyword) {
+    searchElement.innerText = `"${searchKeyword}" 찾으시나요?`;
+  } else {
+    searchElement.innerText = "비사업자부터 프랜차이즈까지";
+  }
+}
+
+// 페이지 로드 시 실행
+window.onload = showSearchMessage;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // 히어로섹션 텍스트 타이핑애니메이션
 
 document.addEventListener("DOMContentLoaded", function () {
