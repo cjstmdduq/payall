@@ -4,7 +4,7 @@
 // | 변경사항
 // 2025.02.21 : 파트너사 - 숫자카운트 - 오늘날짜기능 추가
 // 2025.02.22 : 대규모 수정작업 진행
-// 2025.02.04 : 히어로섹션 - 유입키워드 반환 기능 추가
+// 2025.02.04 : 히어로섹션 - 유입키워드 반환 기능 추가 (레벤슈타인알고리즘 <- 이거 잘 배워둬라.)
 
 //====================================================//
 //====================================================//
@@ -116,48 +116,84 @@ function makeCall() {
 //====================================================//
 //====================================================//
 //====================================================//
+// 히어로섹션, 소구맨트 검색어기반 반환 함수 
+// 🔹 레벤슈타인 거리 계산 함수 < 잘 배워둬라.
+function levenshteinDistance(a, b) {
+  let matrix = Array.from(Array(a.length + 1), () => Array(b.length + 1).fill(0));
 
+  for (let i = 0; i <= a.length; i++) matrix[i][0] = i;
+  for (let j = 0; j <= b.length; j++) matrix[0][j] = j;
 
-// URL에서 특정 파라미터 값 가져오기
+  for (let i = 1; i <= a.length; i++) {
+    for (let j = 1; j <= b.length; j++) {
+      const cost = a[i - 1] === b[j - 1] ? 0 : 1;
+      matrix[i][j] = Math.min(
+        matrix[i - 1][j] + 1,   // 삭제
+        matrix[i][j - 1] + 1,   // 삽입
+        matrix[i - 1][j - 1] + cost // 교체
+      );
+    }
+  }
+  return matrix[a.length][b.length];
+}
+
+// 🔹 추천 검색어 리스트 (오탈자 교정 대상) < 데이터베이스를 많이 늘릴 것
+const keywordList = ["비사업자단말기", "비사업자", "단말기", "페이올", "PG사"];
+
+// 🔹 가장 유사한 검색어 찾기 (레벤슈타인 거리 기반)
+function findClosestMatch(input) {
+  let bestMatch = input;
+  let minDistance = Infinity;
+
+  keywordList.forEach((word) => {
+    let distance = levenshteinDistance(input, word);
+    if (distance < minDistance) {
+      minDistance = distance;
+      bestMatch = word;
+    }
+  });
+
+  // 거리가 2 이하인 경우만 수정 (너무 차이나면 보정 X)
+  return minDistance <= 2 ? bestMatch : input;
+}
+
+// 🔹 URL에서 특정 파라미터 값 가져오기
 function getQueryParam(param) {
   const urlParams = new URLSearchParams(window.location.search);
   return urlParams.get(param);
 }
 
-// Referrer(이전 페이지)에서 검색어 추출
+// 🔹 Referrer(이전 페이지)에서 검색어 추출
 function getSearchKeywordFromReferrer() {
   const referrer = document.referrer; // 사용자가 어디서 왔는지 확인
   let keyword = "";
 
   if (referrer.includes("search.naver.com")) { // 네이버 검색어 추출
     const refUrl = new URL(referrer);
-    keyword = refUrl.searchParams.get("query"); // 네이버 검색어 파라미터
+    keyword = refUrl.searchParams.get("query");
   } else if (referrer.includes("google.com")) { // 구글 검색어 추출
     const refUrl = new URL(referrer);
-    keyword = refUrl.searchParams.get("q"); // 구글 검색어 파라미터
+    keyword = refUrl.searchParams.get("q");
   }
 
   return keyword;
 }
 
-// 검색어 표시 로직
+// 🔹 검색어 표시 로직 (오탈자 자동 수정 포함)
 function showSearchMessage() {
   let searchKeyword = getQueryParam("query") || getSearchKeywordFromReferrer();
   const searchElement = document.getElementById("searchKeyword");
 
   if (searchKeyword) {
+    searchKeyword = findClosestMatch(searchKeyword); // 유사 검색어 추천 적용
     searchElement.innerText = `"${searchKeyword}" 찾으시나요?`;
   } else {
     searchElement.innerText = "비사업자부터 프랜차이즈까지";
   }
 }
 
-// 페이지 로드 시 실행
+// 🔹 페이지 로드 시 실행
 window.onload = showSearchMessage;
-
-
-
-
 
 
 
