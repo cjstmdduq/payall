@@ -1314,8 +1314,7 @@ footer {
   }
 
   .service-box {
-    /* 당장은 똑같아서 필요없음 */
-    font-size: 1rem;
+    font-size: 0.9rem;
     padding: 15px;
     padding-right: 35px;
   }
